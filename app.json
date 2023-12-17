@@ -1,12 +1,24 @@
 {
   "expo": {
-    "name": "blank",
-    "slug": "blank",
-    "version": "1.0.0",
+    "name": "Guvvala Balaraju",
+    "slug": "GuvvalaBalaraju",
+    "version": "5.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "platforms": [
       "ios",
       "android",
       "web"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "61330203-fd2c-4dde-87ba-201fd5e2b848"
+      }
+    },
+    "android": {
+      "package": "com.venkatsaikedari.GuvvalaBalaraju",
+      "versionCode": 5
+    }
   }
 }
