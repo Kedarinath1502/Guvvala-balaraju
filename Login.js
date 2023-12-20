@@ -45,8 +45,8 @@ const Login = ({ navigation }) => {
                             setIsLoading(true); // Set loading state to true
 
                             await signInWithEmailAndPassword(auth, values.email, values.password);
-                            console.log('User signed in successfully!');
-                    
+                            console.log('User signed in successfully!! ');
+
                             navigation.replace('Welcome');
                         } catch (error) {
                             console.log('Login error:', error);
