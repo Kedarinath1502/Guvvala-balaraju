@@ -51,9 +51,9 @@ const Login = ({ navigation }) => {
                         } catch (error) {
                             console.log('Login error:', error);
                             Alert.alert('Login Failed', 'Invalid email or password.')
-                            // Handle login error here
+                            
                         } finally {
-                            setIsLoading(false); // Set loading state back to false
+                            setIsLoading(false); 
                         }
                     }}
                     validationSchema={LoginSchema}
@@ -124,7 +124,7 @@ const Login = ({ navigation }) => {
                                 <TouchableOpacity
                                     style={styles.loginButton(isValid)}
                                     onPress={handleSubmit}
-                                    disabled={isLoading} // Disable button when loading
+                                    disabled={isLoading} 
                                 >
                                     {isLoading ? (
                                         <ActivityIndicator color="white" />
@@ -285,11 +285,11 @@ const styles = StyleSheet.create({
     loginText: {
         flexDirection: 'row',
         marginTop: 10,
-        marginBottom: 15, // Add margin at the bottom to separate from the next content
+        marginBottom: 15, 
         fontSize: 14,
         color: '#333',
         textAlign: 'center',
-        alignSelf: 'center', // Center the text horizontally
+        alignSelf: 'center', 
     },
 
     skipButtonText: {

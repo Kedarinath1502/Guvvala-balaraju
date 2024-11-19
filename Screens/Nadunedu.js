@@ -13,13 +13,13 @@ const Nadunedu = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* Header */}
+            
             <HeaderComponent navigation={navigation} />
-            {/* Content: Concepts List */}
+            
             <ScrollView style={styles.conceptContainer}>
                 <View style={styles.imageContainer}>
                     <Image
-                        source={require('./assets/Telangana_Map.png')} // Replace with the actual image file path
+                        source={require('./assets/Telangana_Map.png')} 
                         style={styles.image}
                     />
                 </View>
@@ -27,7 +27,7 @@ const Nadunedu = ({ navigation }) => {
                     <Text style={styles.one} > Telangana Nadu - Nedu </Text>
                 </View>
                 <View style={styles.naduNeduButtonContainer}>
-                    {/* Button 1 */}
+                    
                     <View style={styles.rowContainer}>
                         <Image
                             source={require('./assets/finger.jpg')}
@@ -36,7 +36,7 @@ const Nadunedu = ({ navigation }) => {
                         <TouchableOpacity
                             style={styles.mapButton}
                             onPress={() => {
-                                // Navigate to the PDF viewer screen with the PDF URL
+                                
                                 navigation.navigate('PDFViewerScreen', { pdfUrl: 'https://drive.google.com/file/d/1BEXi5WL2Lhi6E_I9GahnZcP9Jb6g0dDA/view' });
                             }}
                         >
@@ -45,7 +45,7 @@ const Nadunedu = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Button 2 */}
+                    
                     <View style={styles.rowContainer}>
                         <Image
                             source={require('./assets/finger.jpg')}
@@ -54,7 +54,7 @@ const Nadunedu = ({ navigation }) => {
                         <TouchableOpacity
                             style={styles.mapButton}
                             onPress={() => {
-                                // Navigate to the PDF viewer screen with the PDF URL
+                                
                                 navigation.navigate('PDFViewerScreen', { pdfUrl: 'https://drive.google.com/file/d/1ff3FiSAZ_oDyb90JkNpI59LkvxVJmP8G/view' });
                             }}
                         >
@@ -63,7 +63,7 @@ const Nadunedu = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
 
-                    {/* Button 3 */}
+                    
                     <View style={styles.rowContainer}>
                         <Image
                             source={require('./assets/finger.jpg')}
@@ -72,7 +72,7 @@ const Nadunedu = ({ navigation }) => {
                         <TouchableOpacity
                             style={styles.mapButton}
                             onPress={() => {
-                                // Navigate to the PDF viewer screen with the PDF URL
+                                
                                 navigation.navigate('PDFViewerScreen', { pdfUrl: 'https://drive.google.com/file/d/1GhUea-jKEJ6CfF5l1wtFn9yXLwAThdvr/view' });
                             }}
                         >
@@ -83,7 +83,7 @@ const Nadunedu = ({ navigation }) => {
                 </View>
 
             </ScrollView>
-            {/* Footer */}
+            
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.footerButton} onPress={() => handleTabPress('Welcome')}>
                     <Icon name="home" size={25} color="#FE0175" />
@@ -116,7 +116,7 @@ const Nadunedu = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FE0175', // Pink background color
+        backgroundColor: '#FE0175', 
         flex: 1,
     },
     header: {
@@ -177,16 +177,15 @@ const styles = StyleSheet.create({
     },
     footer: {
         flexDirection: 'row',
-        justifyContent: 'space-between', // Space evenly between items
-        alignItems: 'center', // Align items vertically
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
         paddingHorizontal: 10,
         paddingVertical: 10,
-        backgroundColor: '#FFFFFF', // Pink background for the footer
-        // Shadow properties
-        elevation: 10, // For Android shadow
-        shadowColor: 'black', // For iOS shadow
-        shadowOffset: { width: 4, height: 6 }, // For iOS shadow
-        shadowOpacity: 0.2, // For iOS shadow
+        backgroundColor: '#FFFFFF', 
+        elevation: 10, 
+        shadowColor: 'black', 
+        shadowOffset: { width: 4, height: 6 }, 
+        shadowOpacity: 0.2, 
     },
 
     footerButton: {
@@ -198,7 +197,7 @@ const styles = StyleSheet.create({
         color: '#FE0175',
     },
     activeIconLabel: {
-        color: '#c0c0c0', // Different color for the active tab
+        color: '#c0c0c0', 
     },
     conceptContainer: {
         flex: 1,
@@ -297,15 +296,15 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: '#FE0175',
         fontWeight: 'bold',
-        shadowColor: 'black',       // Shadow color
-        shadowOffset: { width: 1, height: 1 },  // Shadow offset
-        shadowOpacity: 0.8,        // Shadow opacity (0.0 to 1.0)
-        shadowRadius: 1,           // Shadow radius (optional, you can adjust this)
-        elevation: 5,              // Elevation (for Android)
+        shadowColor: 'black',       
+        shadowOffset: { width: 1, height: 1 },  
+        shadowOpacity: 0.8,        
+        shadowRadius: 1,           
+        elevation: 5,              
     },
     rowContainer: {
-        flexDirection: 'row', // Display image and button in the same row
-        alignItems: 'center', // Center vertically in the row
+        flexDirection: 'row', 
+        alignItems: 'center', 
     },
 });
 

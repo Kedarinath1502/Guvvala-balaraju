@@ -19,7 +19,7 @@ const MediaListScreen = ({ route }) => {
               }}>
                 <Video
                   source={{ uri: file.url }}
-                  style={{ width: 400, height: 300, marginTop: 16 }} // Adjust dimensions as needed
+                  style={{ width: 400, height: 300, marginTop: 16 }} 
                   useNativeControls={true}
                   resizeMode='contain'
                   isLooping={false}

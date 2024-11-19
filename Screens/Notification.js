@@ -6,37 +6,28 @@ import FooterComponent from './Components/Main/FooterComponent';
 
 const Notification = ({ navigation }) => {
   const handleFeedbackSurveyClick = () => {
-    const feedbackSurveyUrl = 'https://forms.gle/6ZHkQYeBGiwLNAMKA'; // Your feedback survey URL
+    const feedbackSurveyUrl = 'https://forms.gle/6ZHkQYeBGiwLNAMKA'; 
     Linking.openURL(feedbackSurveyUrl);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
       <HeaderComponent navigation={navigation} />
-
-      {/* Content: Video List */}
       <ScrollView style={styles.videoContainer}>
         <View style={styles.imageContainer}>
           <Image
-            source={require('./assets/guvvalabalaraju.png')} // Replace with the actual image file path
+            source={require('./assets/guvvalabalaraju.png')} 
             style={styles.image}
           />
         </View>
         <Text style={styles.label}>                     Guvvala Balaraju (MLA)</Text>
         <Text style={styles.labelone}>                    Achampet Constituency</Text>
         <Text style={styles.flabel}>Feed back survey :</Text>
-
-        {/* Clickable label for the feedback survey */}
         <TouchableOpacity onPress={handleFeedbackSurveyClick}>
           <Feather name='arrow-right-circle' size={24} color={"red"}><Text style={styles.clabel}>   Click here</Text></Feather>
-
         </TouchableOpacity>
-
-        {/* ... Your video content goes here ... */}
       </ScrollView>
 
-      {/* Footer */}
       <FooterComponent navigation={navigation} />
     </SafeAreaView>
   );
@@ -106,16 +97,15 @@ const styles = StyleSheet.create({
   },
   footer: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Space evenly between items
-    alignItems: 'center', // Align items vertically
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
     paddingHorizontal: 10,
     paddingVertical: 10,
-    backgroundColor: '#FFFFFF', // Pink background for the footer
-    // Shadow properties
-    elevation: 10, // For Android shadow
-    shadowColor: 'black', // For iOS shadow
-    shadowOffset: { width: 4, height: 6 }, // For iOS shadow
-    shadowOpacity: 0.2, // For iOS shadow
+    backgroundColor: '#FFFFFF', 
+    elevation: 10, 
+    shadowColor: 'black', 
+    shadowOffset: { width: 4, height: 6 }, 
+    shadowOpacity: 0.2, 
   },
 
   footerButton: {
@@ -134,14 +124,14 @@ const styles = StyleSheet.create({
   },
   clabel: {
     fontSize: 22,
-    color: 'blue', // You can customize the color
-    //textDecorationLine: 'underline'
+    color: 'blue', 
+    
   },
   label: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 10,
-    //justifyContent:'center',
+    
   },
   labelone: {
     fontSize: 14,
@@ -150,16 +140,13 @@ const styles = StyleSheet.create({
     color: '#FE0175',
   },
   imageContainer: {
-    alignItems: 'center', // Center the image horizontally
+    alignItems: 'center', 
     marginBottom: 10,
-    //marginTop:'10%',
-
   },
   image: {
     width: 100,
     height: 100,
-    resizeMode: 'contain', // Fit the image within the container
-
+    resizeMode: 'contain', 
   },
 });
 

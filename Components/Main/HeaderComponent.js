@@ -46,8 +46,8 @@ const HeaderComponent = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.headerContainer}>
             <StatusBar
-                barStyle="light-content" // Set the status bar text color to light
-                backgroundColor="#FE0175" // Set the status bar background color
+                barStyle="light-content" 
+                backgroundColor="#FE0175" 
             />
             <View style={styles.header}>
                 <Pressable
@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 25,
         marginRight: 10,
-        borderWidth: 1, // Border width
-        borderColor: 'black', // Border color
+        borderWidth: 1, 
+        borderColor: 'black', 
     },
     headerContainer: {
         backgroundColor: '#FE0175',

@@ -17,7 +17,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
-import { auth, db } from './firebase'; // Import your initialized Firebase app
+import { auth, db } from './firebase'; 
 
 const Signup = ({ navigation }) => {
     const SignupSchema = yup.object().shape({
@@ -31,7 +31,7 @@ const Signup = ({ navigation }) => {
     });
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-    const [isLoading, setIsLoading] = useState(false); // This line should be outside the onSubmit function
+    const [isLoading, setIsLoading] = useState(false);
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -42,12 +42,12 @@ const Signup = ({ navigation }) => {
     };
     const onSubmit = async (values) => {
         try {
-            setIsLoading(true); // Set loading state to true
+            setIsLoading(true);
 
             const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
             const user = userCredential.user;
             console.log('User account created & signed in!');
-            // Store user information in Firestore
+        
             await addDoc(collection(db, 'users'), {
                 userId: user.uid,
                 firstName: '',
@@ -59,19 +59,18 @@ const Signup = ({ navigation }) => {
                 profileImage: 'https://picsum.photos/seed/picsum/200/300',
                 role: 'User',
                 userName: values.userName,
-                // Add any other user data you want to store
             });
             console.log('User registered and information stored in Firestore');
             Alert.alert(
                 'Success',
                 'Registration successful. You can now login.',
                 [{ text: 'OK', onPress: () => navigation.navigate('Login') }]
-            );// Navigate to the welcome screen
+            );
         } catch (error) {
             console.error('Error creating user:', error);
             Alert.alert('Error creating user:', error.message);
         } finally {
-            setIsLoading(false); // Set loading state back to false
+            setIsLoading(false); 
         }
     };
 
@@ -182,7 +181,7 @@ const Signup = ({ navigation }) => {
                                 <View style={styles.agreementContainer}>
                                     <TouchableOpacity style={styles.checkbox} onPress={toggleCheckbox}>
                                         {isCheckboxChecked && (
-                                            <Icon name="check" size={18} color="#FE0175" /> // Render check icon when checked
+                                            <Icon name="check" size={18} color="#FE0175" /> 
                                         )}
                                     </TouchableOpacity>
                                     <Text style={styles.agreementText}>
@@ -194,7 +193,7 @@ const Signup = ({ navigation }) => {
                                         Already registered?{' '}
                                         <Text
                                             style={styles.loginLink}
-                                            onPress={() => navigation.navigate('Login')} // Replace 'LoginPage' with your actual login page route
+                                            onPress={() => navigation.navigate('Login')} 
                                         >
                                             Login Here
                                         </Text>
@@ -204,7 +203,7 @@ const Signup = ({ navigation }) => {
                                 <TouchableOpacity
                                     style={styles.loginButton(isValid)}
                                     onPress={handleSubmit}
-                                    disabled={isLoading} // Disable button when loading
+                                    disabled={isLoading} 
                                 >
                                     {isLoading ? (
                                         <ActivityIndicator color="white" />
@@ -319,7 +318,7 @@ const styles = StyleSheet.create({
     agreementContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 15, // Increase the top margin to create space between checkbox and "Already registered?"
+        marginTop: 15, 
     },
     checkbox: {
         width: 20,
@@ -335,15 +334,15 @@ const styles = StyleSheet.create({
     loginText: {
         flexDirection: 'row',
         marginTop: 10,
-        marginBottom: 15, // Add margin at the bottom to separate from the next content
+        marginBottom: 15, 
         fontSize: 14,
         color: '#333',
         textAlign: 'center',
-        alignSelf: 'center', // Center the text horizontally
+        alignSelf: 'center', 
     },
     loginLink: {
         color: '#FE0175',
-        //textDecorationLine: 'underline',
+        
         fontWeight: 'bold',
     },
     welcomeTextlabel: {

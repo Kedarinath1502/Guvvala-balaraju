@@ -71,7 +71,7 @@ const Navigation = ({ navigation }) => {
                             <TouchableOpacity
                                 style={styles.iconButton}
                                 onPress={() => {
-                                    // Add the action you want when the "smile" icon is pressed
+                                    
                                 }}
                             >
 
@@ -79,7 +79,7 @@ const Navigation = ({ navigation }) => {
                             </TouchableOpacity>
                         ),
                         headerRightContainerStyle: {
-                            paddingRight: 10, // Adjust the spacing from the right
+                            paddingRight: 10, 
                         },
                     }} />
                 <Stack.Screen name="Signup" component={Signup}
@@ -94,7 +94,7 @@ const Navigation = ({ navigation }) => {
                             <TouchableOpacity
                                 style={styles.iconButton}
                                 onPress={() => {
-                                    // Add the action you want when the "smile" icon is pressed
+                                    
                                 }}
                             >
 
@@ -102,7 +102,7 @@ const Navigation = ({ navigation }) => {
                             </TouchableOpacity>
                         ),
                         headerRightContainerStyle: {
-                            paddingRight: 10, // Adjust the spacing from the right
+                            paddingRight: 10, 
                         },
                     }}
                 />

@@ -9,10 +9,8 @@ const Weblinks = ({ navigation }) => {
     const concepts = [
         {
             id: 0,
-            //title: 'Telangana State', // Added new concept
-            image: require('./assets/schemes.jpg'), // Replace with your image path
-            //matter: 'Welcome to Telangana State!', // Text for the new concept
-            url: 'https://www.telangana.gov.in/', // URL for the new concept
+            image: require('./assets/schemes.jpg'), 
+            url: 'https://www.telangana.gov.in/', 
         },
         {
             id: 1,
@@ -22,7 +20,6 @@ const Weblinks = ({ navigation }) => {
                 "The Telangana Government has recently embarked on a magnanimous journey to solve the issues and problems faced by the Dalits in the State with the introduction of ‘Dalit Bandhu Scheme’. The scheme provides a one-time grant of Rs. 10,00,000/- to the beneficiaries thereby instilling a sense of financial security and hope for a better future. The Telangana Government will handhold the beneficiaries for judiciously utilising the financial assistance. Hon’ble CM Sri K. Chandrashekar Rao formally launched the Dalit Bandhu scheme in Shalapally of the Huzurabad Assembly constituency in Karimnagar District on 16th August 2021.",
             url: 'https://dalitbandhu.telangana.gov.in/',
         },
-        // Add more concepts here as needed
         {
             id: 2,
             title: 'KCR Nutrition Kit',
@@ -241,7 +238,7 @@ const Weblinks = ({ navigation }) => {
                         key={concept.id}
                         style={styles.conceptItem}
                         onPress={() => {
-                            // Open the URL when the concept is clicked
+                            
                             Linking.openURL(concept.url).catch((error) => {
                                 console.error('Error opening URL:', error);
                             });
@@ -253,7 +250,7 @@ const Weblinks = ({ navigation }) => {
                                 style={[
                                     styles.conceptImage,
                                     concept.id === 0 ? styles.id0Image : null,
-                                    concept.id === 11 ? styles.id11Image : null, // Add style for id 11
+                                    concept.id === 11 ? styles.id11Image : null, 
                                 ]}
                             />
                         </View>
@@ -270,7 +267,7 @@ const Weblinks = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FE0175', // Pink background color
+        backgroundColor: '#FE0175', 
         flex: 1,
     },
     header: {
@@ -331,16 +328,16 @@ const styles = StyleSheet.create({
     },
     footer: {
         flexDirection: 'row',
-        justifyContent: 'space-between', // Space evenly between items
-        alignItems: 'center', // Align items vertically
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
         paddingHorizontal: 10,
         paddingVertical: 10,
-        backgroundColor: '#FFFFFF', // Pink background for the footer
-        // Shadow properties
-        elevation: 10, // For Android shadow
-        shadowColor: 'black', // For iOS shadow
-        shadowOffset: { width: 4, height: 6 }, // For iOS shadow
-        shadowOpacity: 0.2, // For iOS shadow
+        backgroundColor: '#FFFFFF', 
+        
+        elevation: 10, 
+        shadowColor: 'black', 
+        shadowOffset: { width: 4, height: 6 }, 
+        shadowOpacity: 0.2, 
     },
 
     footerButton: {
@@ -352,7 +349,7 @@ const styles = StyleSheet.create({
         color: '#FE0175',
     },
     activeIconLabel: {
-        color: '#c0c0c0', // Different color for the active tab
+        color: '#c0c0c0', 
     },
     conceptContainer: {
         flex: 1,
@@ -431,8 +428,8 @@ const styles = StyleSheet.create({
         width: "100%",
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 5, // Adjust this value for top spacing
-        marginBottom: 5, // Adjust this value for bottom spacing
+        marginTop: 5, 
+        marginBottom: 5, 
     },
     imageContainer: {
         alignItems: 'center',

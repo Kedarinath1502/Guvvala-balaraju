@@ -18,21 +18,21 @@ const FooterComponent = ({ navigation, videos }) => {
         const user = auth.currentUser;
 
         if (user) {
-            // User is authenticated
+            
             const userId = user.uid;
             console.log(userId);
 
-            // Define a reference to the 'users' collection in Firestore
+            
             const usersCollection = collection(db, 'users');
 
-            // Create a query to get user data where userId === userId
+            
             const querys = where('userId', '==', userId);
 
-            // Fetch the user's data from Firestore using the query
-            getDocs(query(usersCollection, querys)) // Pass the query directly here
+            
+            getDocs(query(usersCollection, querys)) 
                 .then((querySnapshot) => {
                     if (!querySnapshot.empty) {
-                        // Documents exist, you can access the user's data
+                        
                         querySnapshot.forEach((doc) => {
                             const userData = doc.data();
                             if (userData.role === 'Admin') {
@@ -45,7 +45,7 @@ const FooterComponent = ({ navigation, videos }) => {
 
                         });
                     } else {
-                        // No matching documents found, handle the case accordingly
+                        
                         console.log('No matching user documents found');
                     }
                 })
@@ -53,7 +53,7 @@ const FooterComponent = ({ navigation, videos }) => {
                     console.error('Error fetching user data:', error);
                 });
         } else {
-            // User is not authenticated, handle this case accordingly
+            
             console.log('User is not authenticated');
         }
     }, []);
@@ -122,15 +122,15 @@ const styles = StyleSheet.create({
         color: '#FE0175',
     },
     createPostButton: {
-        backgroundColor: '#FE0175', // Orange color for the button
+        backgroundColor: '#FE0175', 
         width: 70,
         height: 70,
-        borderRadius: 50, // Make it round
-        justifyContent: 'center', // Center the plus symbol vertically
-        alignItems: 'center', // Center the plus symbol horizontally
+        borderRadius: 50, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
         position: 'absolute',
-        bottom: '300%', // Adjust the distance from the bottom
-        right: 20, // Adjust the distance from the left
+        bottom: '300%', 
+        right: 20, 
     },
 });
 

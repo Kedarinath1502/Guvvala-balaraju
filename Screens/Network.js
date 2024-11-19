@@ -19,10 +19,10 @@ const Network = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
+      
       <HeaderComponent navigation={navigation} />
 
-      {/* Content: Image Links */}
+      
       <ScrollView>
         <View style={styles.content}>
           <Text style={styles.one} > MLA All Social Media  Links</Text>
@@ -43,7 +43,6 @@ const Network = ({ navigation }) => {
             <TouchableOpacity
               style={styles.mapButton}
               onPress={() => {
-                // Navigate to the PDF viewer screen with the PDF URL
                 navigation.navigate('Weblinks');
               }}
             >
@@ -54,11 +53,11 @@ const Network = ({ navigation }) => {
 
       </ScrollView>
 
-      {/* Spacer to push footer to the bottom */}
+      
       <View style={styles.spacer} />
 
 
-      {/* Footer */}
+      
       <View style={styles.footer}>
         <TouchableOpacity style={styles.footerButton} onPress={() => handleTabPress('Welcome')}>
           <Icon name="home" size={25} color="#FE0175" />
@@ -91,7 +90,7 @@ const Network = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FE0175', // Pink background color
+    backgroundColor: '#FE0175', 
     flex: 1,
   },
   header: {
@@ -189,8 +188,8 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 5, // Adjust this value for top spacing
-    marginBottom: 5, // Adjust this value for bottom spacing
+    marginTop: 5, 
+    marginBottom: 5, 
   },
   mapButton: {
     padding: 10,

@@ -13,7 +13,7 @@ const Schemes = ({ navigation }) => {
   const [schemes, setSchemes] = useState([]);
   const fetchSchemesFromFirebase = async (setSchemes) => {
     try {
-      const schemesCollection = await getDocs(collection(db, 'schemes')); // Replace 'schemes' with your Firestore collection name
+      const schemesCollection = await getDocs(collection(db, 'schemes')); 
       const schemeData = schemesCollection.docs.map((doc) => doc.data());
       setSchemes(schemeData);
     } catch (error) {
@@ -68,17 +68,17 @@ const styles = StyleSheet.create({
     color: "#FE0175",
   },
   gridRow: {
-    flexDirection: 'row', // Display items in a row
-    flexWrap: 'wrap',     // Allow items to wrap to the next row
-    justifyContent: 'space-between', // Adjust this as needed
+    flexDirection: 'row', 
+    flexWrap: 'wrap',     
+    justifyContent: 'space-between', 
     marginBottom: 10,
   },
   gridItem: {
-    width: '33%', // Three items per row, adjust as needed
-    aspectRatio: 1, // Maintain a 1:1 aspect ratio for square boxes
+    width: '33%', 
+    aspectRatio: 1, 
   },
   buttonContainer: {
-    aspectRatio: 1, // Maintain a 1:1 aspect ratio for square boxes
+    aspectRatio: 1, 
     borderWidth: 1,
     borderColor: '#ccc',
     backgroundColor: '#ffb6c1',
@@ -94,9 +94,9 @@ const styles = StyleSheet.create({
 
   },
   buttonImage: {
-    width: '50%', // Adjust the image size as needed
-    height: '50%', // Adjust the image size as needed
-    resizeMode: 'contain', // Adjust the image resizeMode as needed
+    width: '50%', 
+    height: '50%', 
+    resizeMode: 'contain', 
   },
   gridItemText: {
     fontSize: 10,

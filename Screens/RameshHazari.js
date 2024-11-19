@@ -14,7 +14,7 @@ const RameshHazari = ({ navigation }) => {
       <Text style={styles.labelone}>Member of the Legislative Assembly (MLA)</Text>
       <View style={styles.imageContainer}>
         <Image
-          source={require('./assets/2018.jpg')} // Replace with the actual image file path
+          source={require('./assets/2018.jpg')} 
           style={styles.image0}
         />
       </View>
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: 'bold',
-    //marginBottom: 20,
     top: 50,
 
   },
@@ -62,13 +61,11 @@ const styles = StyleSheet.create({
   labeltwo: {
     fontSize: 24,
     fontWeight: 'bold',
-    //marginBottom: 20,
     color: '#FE0175',
   },
   imageContainer: {
     alignItems: 'center',
     marginBottom: 10,
-    // marginTop: '20%',
   },
   image: {
     width: 100,

@@ -11,7 +11,7 @@ import { BottomSheet } from 'react-native-btr';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
-// Post component
+
 const Post = ({ postId, username, profileImage, description, files, likess, comment, navigation, createdAt }) => {
   const [currentUserID, setCurrentUserId] = useState(null);
   const [likes, setLikes] = useState([]);
@@ -32,13 +32,13 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
   const formattedDate = createdAt ? format(createdAt, 'MMMM d, yyyy') : '';
 
   useEffect(() => {
-    // Check if likess is defined and not null
+    
     if (likess) {
       setLikes(likess);
       setTotalLikes(likess.length);
     }
 
-    // Check if comment is defined and not null
+    
     if (comment) {
       setCommentList(comment);
       setTotalComments(comment.length);
@@ -48,21 +48,21 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
-      // User is authenticated
+      
       const userId = user.uid;
       setCurrentUserId(userId);
 
-      // Define a reference to the 'users' collection in Firestore
+      
       const usersCollection = collection(db, 'users');
 
-      // Create a query to get user data where userId === userId
+      
       const querys = where('userId', '==', userId);
 
-      // Fetch the user's data from Firestore using the query
-      getDocs(query(usersCollection, querys)) // Pass the query directly here
+      
+      getDocs(query(usersCollection, querys)) 
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
-            // Documents exist, you can access the user's data
+            
             querySnapshot.forEach((doc) => {
               const userData = doc.data();
               setAuthProfileImage(userData.profileImage);
@@ -76,7 +76,7 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
 
             });
           } else {
-            // No matching documents found, handle the case accordingly
+            
             console.log('No matching user documents found');
           }
         })
@@ -84,7 +84,7 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
           console.error('Error fetching user data:', error);
         });
     } else {
-      // User is not authenticated, handle this case accordingly
+      
       console.log('User is not authenticated');
     }
   }, []);
@@ -92,15 +92,15 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch post data and likes from Firestore
-        const postRef = doc(db, 'post', postId); // Use 'posts' instead of 'post'
+        
+        const postRef = doc(db, 'post', postId); 
         const docSnapshot = await getDoc(postRef);
         if (docSnapshot.exists()) {
           const postData = docSnapshot.data();
-          // Check if the current user has already liked the post
-          const userLiked = postData.likes.some((like) => like.userId === currentUserID); // Assuming 'like' objects have a 'userId' property
+          
+          const userLiked = postData.likes.some((like) => like.userId === currentUserID); 
           setLikedByCurrentUser(userLiked);
-          // This logs whether the user has liked the post (true or false)
+          
         } else {
           console.log('error', 'user not found');
         }
@@ -109,7 +109,7 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
       }
     };
 
-    fetchData(); // Call the async function immediately
+    fetchData(); 
 
   }, [postId, currentUserID]);
 
@@ -119,26 +119,25 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
   const handleLike = async (postId) => {
     try {
       const postRef = doc(db, 'post', postId);
-      // Fetch the current post data
       const postSnapshot = await getDoc(postRef);
 
       if (postSnapshot.exists()) {
         const postData = postSnapshot.data();
         if (likedByCurrentUser) {
-          // Unlike the post
+          
           const updatedLikes = postData.likes.filter((like) => like.userId !== currentUserID);
           await updateDoc(postRef, { likes: updatedLikes });
           setLikedByCurrentUser(false);
           setTotalLikes(updatedLikes.length);
         } else {
-          // Like the post
+          
           const updatedLikes = [...postData.likes, { userId: currentUserID }];
           await updateDoc(postRef, { likes: updatedLikes });
           setLikedByCurrentUser(true);
           setTotalLikes(updatedLikes.length);
         }
       } else {
-        // console.log(postId);
+        
         console.error("The document with postId does not exist.");
       }
     } catch (error) {
@@ -165,8 +164,8 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
   }
   const postComment = async () => {
     try {
-      const postRef = doc(db, 'post', selectedPostId); // Assuming 'db' is your Firestore database reference
-      // Fetch the current post data
+      const postRef = doc(db, 'post', selectedPostId); 
+      
       const postSnapshot = await getDoc(postRef);
       if (postSnapshot.exists()) {
         const postData = postSnapshot.data();
@@ -175,10 +174,10 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
           ...postData.comments,
           { userId: currentUserID, profileImage: authProfileImage, username: authUserName, textMessage: sanitizedTextMessage }
         ];
-        await updateDoc(postRef, { comments: updatedComments }); // Update the comments field
-        setTextMessage(''); // Clear the input field
-        setCommentList(updatedComments); // Update the comment list state
-        // You can also update the total comments count if needed
+        await updateDoc(postRef, { comments: updatedComments }); 
+        setTextMessage(''); 
+        setCommentList(updatedComments); 
+        
         setTotalComments(updatedComments.length);
       } else {
         console.error("The document with selectedPostId does not exist.");
@@ -220,10 +219,10 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
         { text: 'Cancel', onPress: () => console.log('Cancel Pressed') },
         {
           text: 'OK', onPress: async () => {
-            const postRef = doc(db, 'post', postId); // Assuming 'posts' is your collection name
+            const postRef = doc(db, 'post', postId); 
             await deleteDoc(postRef);
-            // Optionally, you can update your state or fetch updated posts after deletion
-            // ...
+            
+            
             console.log(`Post with ID ${postId} deleted successfully.`);
 
           }
@@ -235,13 +234,13 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
   }
 
   const sharePost = async (description, files) => {
-    // Use map to extract URLs as an array of strings
+    
     const urlsArray = files.map(file => file.url);
 
-    // Join the URLs with line breaks
+    
     const urlsString = urlsArray.join('\n');
 
-    // Create the message with line breaks
+    
     const message = `${description}\n${urlsString}`;
 
     await Share.share({ message }).catch(e => {
@@ -364,7 +363,7 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
                     }}>
                       <Video
                         source={{ uri: file.url }}
-                        style={{ width: 400, height: 200 }} // Adjust dimensions as needed
+                        style={{ width: 400, height: 200 }} 
                         useNativeControls={true}
                         resizeMode='contain'
                         isLooping={false}
@@ -429,7 +428,7 @@ const SearchScreen = ({ navigation }) => {
   const [isSearching, setIsSearching] = useState(false);
   const handleSearch = (searchKeyword) => {
     if (isSearching) {
-      return; // Prevent multiple searches while one is in progress
+      return; 
     }
 
     setIsSearching(true);
@@ -438,17 +437,17 @@ const SearchScreen = ({ navigation }) => {
     const postsCollection = collection(db, 'post');
     const q = query(
       postsCollection,
-      // where('description', '==', searchKeyword),
-      // orderBy('description'), // Order by 'description' first
-      // orderBy('createdAt', 'desc') // Then order by 'createdAt' in descending order
+      
+      
+      
     );
 
     getDocs(q)
       .then((querySnapshot) => {
-        setIsSearching(false); // Reset search state
+        setIsSearching(false); 
         if (querySnapshot.empty) {
           console.log('No matching documents found.');
-          setSearchResults([]); // Set search results to an empty list if no matches
+          setSearchResults([]); 
         } else {
           const results = [];
           querySnapshot.forEach((doc) => {
@@ -465,12 +464,12 @@ const SearchScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
-        setIsSearching(false); // Reset search state on error
+        setIsSearching(false); 
         console.error('Error searching for posts:', error);
       });
   };
 
-  // ...
+  
 
   return (
     <SafeAreaView style={{ marginTop: 50, marginBottom: 10, marginLeft: 10, marginRight: 10 }}>
@@ -482,20 +481,13 @@ const SearchScreen = ({ navigation }) => {
           style={styles.inputText}
           placeholder="Search for a post"
           placeholderTextColor="grey"
-          // value={searchKeyword}
+          
           onChangeText={(text) => {
             handleSearch(text);
           }}
         />
       </View>
-      {/* <TextInput
-        placeholder="Enter keyword"
-        value={searchKeyword}
-        onChangeText={(text) => setSearchKeyword(text)}
-      />
-      <Button title="Search" onPress={() => {
-        handleSearch(searchKeyword);
-      }} disabled={isSearching} /> */}
+
       {searchResults.length > 0 ? (
         <FlatList
           data={searchResults}
@@ -532,15 +524,15 @@ const styles = StyleSheet.create({
   },
   centeredContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Distribute buttons equally
+    justifyContent: 'space-between', 
     alignItems: 'center',
-    width: Dimensions.get('window').width * 0.9, // Responsive width
+    width: Dimensions.get('window').width * 0.9, 
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    //top:"-40%",
-    //marginLeft:",
+    
+    
   },
   actionText: {
     marginLeft: 8,
@@ -572,14 +564,14 @@ const styles = StyleSheet.create({
   },
   postContainer: {
     backgroundColor: 'white',
-    marginBottom: 16, // Increase the spacing between posts
-    padding: 12, // Add padding to the entire post container
-    borderRadius: 8, // Add a slight border radius for a card-like appearance
+    marginBottom: 16, 
+    padding: 12, 
+    borderRadius: 8, 
     shadowColor: '#00000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    elevation: 2, // Add shadow to simulate elevation
+    elevation: 2, 
   },
   leftContent: {
     flexDirection: 'row',
@@ -600,11 +592,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    //paddingHorizontal: 16,
+    
     marginBottom: 8,
   },
   userInfoContainer: {
-    flexDirection: 'column', // Make content appear vertically
+    flexDirection: 'column', 
     flex: 1,
   },
   username: {
@@ -613,8 +605,8 @@ const styles = StyleSheet.create({
   },
 
   creationDateText: {
-    fontSize: 12, // Adjust the font size as needed
-    color: 'gray', // Customize the text color
+    fontSize: 12, 
+    color: 'gray', 
   },
   postImage: {
     width: 375,
@@ -634,12 +626,12 @@ const styles = StyleSheet.create({
   likeButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: '10%', // Add margin between buttons
+    marginRight: '10%', 
   },
   commentButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: '10%', // Add margin between buttons
+    marginRight: '10%', 
   },
   shareButton: {
     flexDirection: 'row',
@@ -653,7 +645,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   captionContainer: {
-    //top:"1%",
+    
   },
   headerContainer: {
     backgroundColor: '#FE0175',
@@ -711,15 +703,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   createPostButton: {
-    backgroundColor: '#FE0175', // Orange color for the button
+    backgroundColor: '#FE0175', 
     width: 70,
     height: 70,
-    borderRadius: 50, // Make it round
-    justifyContent: 'center', // Center the plus symbol vertically
-    alignItems: 'center', // Center the plus symbol horizontally
+    borderRadius: 50, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
     position: 'absolute',
-    bottom: 70, // Adjust the distance from the bottom
-    right: 20, // Adjust the distance from the left
+    bottom: 70, 
+    right: 20, 
   },
   emptySpace: {
     flex: 1,

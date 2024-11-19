@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { addDoc, collection, doc, getDocs, where, query, getDoc } from 'firebase/firestore';
-import { auth, db, storage } from './firebase'; // Import your initialized Firebase app
+import { auth, db, storage } from './firebase'; 
 import { uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { Video } from 'expo-av';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -21,7 +21,7 @@ const UploadVideos = ({ route }) => {
 
   const getPostData = async (postId) => {
     try {
-      const postRef = doc(db, 'videos', postId); // Assuming 'posts' is your collection name
+      const postRef = doc(db, 'videos', postId); 
       const postSnapshot = await getDoc(postRef);
 
       if (postSnapshot.exists()) {
@@ -29,11 +29,11 @@ const UploadVideos = ({ route }) => {
         return postData;
       } else {
         console.error(`No post found with ID ${postId}.`);
-        return null; // Handle the case when the post doesn't exist
+        return null; 
       }
     } catch (error) {
       console.error(`Error fetching post data for ID ${postId}:`, error);
-      return null; // Handle the error case
+      return null; 
     }
   };
   useEffect(() => {
@@ -43,19 +43,19 @@ const UploadVideos = ({ route }) => {
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
-      // User is authenticated
+      
       const userId = user.uid;
       console.log(userId);
-      // Define a reference to the 'users' collection in Firestore
+      
       const usersCollection = collection(db, 'users');
 
-      // Create a query to get user data where userId === userId
+      
       const querys = where('userId', '==', userId);
-      // Fetch the user's data from Firestore using the query
-      getDocs(query(usersCollection, querys)) // Pass the query directly here
+      
+      getDocs(query(usersCollection, querys)) 
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
-            // Documents exist, you can access the user's data
+            
             querySnapshot.forEach((doc) => {
               const userData = doc.data();
               setUserName(userData.userName);
@@ -63,7 +63,7 @@ const UploadVideos = ({ route }) => {
 
             });
           } else {
-            // No matching documents found, handle the case accordingly
+            
             console.log('No matching user documents found');
           }
         })
@@ -71,7 +71,7 @@ const UploadVideos = ({ route }) => {
           console.error('Error fetching user data:', error);
         });
     } else {
-      // User is not authenticated, handle this case accordingly
+      
       console.log('User is not authenticated');
     }
   }, []);
@@ -83,7 +83,7 @@ const UploadVideos = ({ route }) => {
       postedBy: auth.currentUser.uid,
       createdAt: Date.now(),
       category: category,
-      files: selectedFiles, // Pass the selectedImages array
+      files: selectedFiles, 
       profileImage: profileImage,
     };
 
@@ -117,7 +117,7 @@ const UploadVideos = ({ route }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Videos,
       aspect: [4, 3],
       quality: 1,
-      allowsMultipleSelection: true, // Allow multiple image selection
+      allowsMultipleSelection: true, 
     });
 
     if (!result.canceled) {
@@ -168,7 +168,7 @@ const UploadVideos = ({ route }) => {
             ...prevSelectedFiles,
             { url: downloadUrl, mediaType: mediaType }
           ]);
-          // setSelectedFiles((prevSelectedFiles) => [...prevSelectedFiles, downloadUrl]);
+          
           console.log('uploaded file url is here : ', selectedFiles);
           setUploading(false);
         })
@@ -186,7 +186,7 @@ const UploadVideos = ({ route }) => {
   };
   const handleBackButton = () => {
     if (navigations) {
-      navigations.goBack(); // Go back to the previous screen
+      navigations.goBack(); 
     } else {
       console.log('Navigation object is not defined');
     }
@@ -195,7 +195,7 @@ const UploadVideos = ({ route }) => {
     <SafeAreaView>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Use 'padding' behavior for iOS and 'height' behavior for Android
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
       >
         <View style={styles.toolbar}>
           <TouchableOpacity style={styles.backButton} onPress={handleBackButton}>
@@ -227,7 +227,7 @@ const UploadVideos = ({ route }) => {
                       <TouchableOpacity>
                         <Video
                           source={{ uri: file.url }}
-                          style={styles.videoStyle}  //Adjust dimensions as needed
+                          style={styles.videoStyle}  
                           useNativeControls={true}
                           isLooping={false}
                         />
@@ -237,7 +237,7 @@ const UploadVideos = ({ route }) => {
                       </View>
                       <TouchableOpacity
                         style={styles.videoDeleteStyle}
-                        onPress={() => handleRemoveVideo(index)} // Call handleRemoveVideo when the button is pressed
+                        onPress={() => handleRemoveVideo(index)} 
                       >
                         <Feather name='trash-2' size={24} color='black' />
                       </TouchableOpacity>
@@ -429,7 +429,7 @@ const styles = StyleSheet.create({
     left: 10,
     zIndex: 999,
   },
-  // ... other styles ...
+  
 });
 
 export default UploadVideos;

@@ -3,19 +3,17 @@ import { View, Image, StyleSheet, SafeAreaView } from 'react-native';
 
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
-    // Use setTimeout to navigate to the login page after 5 seconds
     const timeout = setTimeout(() => {
-      navigation.replace('Welcome'); // Navigate to the login page
+      navigation.replace('Welcome'); 
     }, 2000);
 
-    return () => clearTimeout(timeout); // Clear the timeout if the component unmounts
+    return () => clearTimeout(timeout); 
   }, [navigation]);
 
   return (
-
     <SafeAreaView style={styles.container}>
       <Image
-        source={require('./assets/render_image.jpeg')} // Replace with your splash screen image
+        source={require('./assets/render_image.jpeg')} 
         style={styles.image}
       />
     </SafeAreaView>

@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import * as ImagePicker from 'expo-image-picker';
 import { collection, doc, getDoc, getDocs, where, query, updateDoc } from 'firebase/firestore';
 import Icon from 'react-native-vector-icons/Feather';
-import { app, auth, db, storage } from './firebase'; // Import your initialized Firebase app
+import { app, auth, db, storage } from './firebase'; 
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 const ProfileSchema = yup.object().shape({
     firstName: yup.string().max(26, 'firs name has reached max length'),
@@ -17,8 +17,8 @@ const ProfileSchema = yup.object().shape({
     address: yup.string().max(100, 'Address reached max length'),
 });
 const ProfilePage = ({ route }) => {
-    // const mobileNo = route?.params?.mobileNo || '';
-    // const email = route?.params?.email || '';
+    
+    
     const [mediaType, setMediaType] = useState('image');
     const [userData, setUserData] = useState({});
     const [loading, setIsLoading] = useState(false);
@@ -34,7 +34,7 @@ const ProfilePage = ({ route }) => {
 
     const handleRegister = async (values) => {
         try {
-            setIsLoading(true); // Set loading state to true
+            setIsLoading(true); 
             const userId = auth.currentUser.uid;
             const updatedData = {
                 firstName: values.firstName,
@@ -43,38 +43,38 @@ const ProfilePage = ({ route }) => {
                 email: values.email,
                 location: values.location,
                 address: values.address,
-                profileImage: profileImage, // Make sure profileImage and role are defined elsewhere
+                profileImage: profileImage, 
                 role: role,
                 userName: userName,
             };
 
-            // Reference to the 'users' collection in Firestore
+            
             const usersCollection = collection(db, 'users');
 
-            // Create a query to find the document where 'userId' field matches the current user's ID
+            
             const queryCondition = where('userId', '==', userId);
 
-            // Fetch the user's document(s) that match the query condition
+            
             const querySnapshot = await getDocs(query(usersCollection, queryCondition));
 
-            // Check if any documents match the query
+            
             if (!querySnapshot.empty) {
-                // Assuming there's only one document that matches the query
+                
                 const userDoc = querySnapshot.docs[0];
 
-                // Update the user's data in Firestore
+                
                 await updateDoc(userDoc.ref, updatedData);
 
-                setIsLoading(false); // Set loading state back to false
+                setIsLoading(false); 
                 console.log('User profile updated successfully');
                 Alert.alert('Success', 'Profile updated successfully.');
             } else {
-                setIsLoading(false); // Set loading state back to false
+                setIsLoading(false); 
                 console.log('No matching user documents found');
                 Alert.alert('Error', 'No matching user documents found.');
             }
         } catch (error) {
-            setIsLoading(false); // Set loading state back to false
+            setIsLoading(false); 
             console.error('Error updating profile:', error);
             Alert.alert('Error updating profile:', error.message);
         }
@@ -85,26 +85,26 @@ const ProfilePage = ({ route }) => {
     useEffect(() => {
         const user = auth.currentUser;
         if (user) {
-            // User is authenticated
+            
             const userId = user.uid;
             console.log(userId);
-            // Define a reference to the 'users' collection in Firestore
+            
             const usersCollection = collection(db, 'users');
 
-            // Create a query to get user data where userId === userId
+            
             const queryCondition = where('userId', '==', userId);
-            // Fetch the user's data from Firestore using the query
+            
             getDocs(query(usersCollection, queryCondition))
                 .then((querySnapshot) => {
                     if (!querySnapshot.empty) {
-                        // Documents exist, you can access the user's data
+                        
                         const userData = querySnapshot.docs[0].data();
                         console.log('Fetched user data:', userData);
                         setUserData(userData);
-                        // Set the state variables here
+                        
 
                     } else {
-                        // No matching documents found, handle the case accordingly
+                        
                         console.log('No matching user documents found');
                     }
                 })
@@ -112,7 +112,7 @@ const ProfilePage = ({ route }) => {
                     console.error('Error fetching user data:', error);
                 });
         } else {
-            // User is not authenticated, handle this case accordingly
+            
             console.log('User is not authenticated');
         }
     }, []);
@@ -141,7 +141,7 @@ const ProfilePage = ({ route }) => {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             aspect: [4, 3],
             quality: 1,
-            allowsMultipleSelection: false, // Allow multiple image selection
+            allowsMultipleSelection: false, 
         });
 
         if (!result.canceled) {
@@ -201,7 +201,7 @@ const ProfilePage = ({ route }) => {
     return (
         <KeyboardAvoidingView
             style={styles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // Use 'padding' behavior for iOS and 'height' behavior for Android
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
         >
             <Formik
                 initialValues={userData}

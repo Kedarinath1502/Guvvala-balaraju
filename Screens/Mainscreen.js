@@ -11,7 +11,7 @@ import { BottomSheet } from 'react-native-btr';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
-// Post component
+
 const Post = ({ postId, username, profileImage, description, files, likess, comment, navigation, createdAt }) => {
     const [currentUserID, setCurrentUserId] = useState(null);
     const [likes, setLikes] = useState([]);
@@ -38,7 +38,6 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
         }
         if (comment) {
             setCommentList(comment);
-            // console.log(comment.length)
             setTotalComments(comment.length);
         }
     }, [likess, comment]);
@@ -48,17 +47,17 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
         if (user) {
             const userId = user.uid;
             setCurrentUserId(userId);
-            // Define a reference to the 'users' collection in Firestore
+        
             const usersCollection = collection(db, 'users');
 
-            // Create a query to get user data where userId === userId
+        
             const querys = where('userId', '==', userId);
 
-            // Fetch the user's data from Firestore using the query
-            getDocs(query(usersCollection, querys)) // Pass the query directly here
+        
+            getDocs(query(usersCollection, querys))
                 .then((querySnapshot) => {
                     if (!querySnapshot.empty) {
-                        // Documents exist, you can access the user's data
+                    
                         querySnapshot.forEach((doc) => {
                             const userData = doc.data();
                             setAuthProfileImage(userData.profileImage);
@@ -84,15 +83,15 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch post data and likes from Firestore
-                const postRef = doc(db, 'post', postId); // Use 'posts' instead of 'post'
+            
+                const postRef = doc(db, 'post', postId);
                 const docSnapshot = await getDoc(postRef);
                 if (docSnapshot.exists()) {
                     const postData = docSnapshot.data();
-                    // Check if the current user has already liked the post
-                    const userLiked = postData.likes.some((like) => like.userId === currentUserID); // Assuming 'like' objects have a 'userId' property
+                
+                    const userLiked = postData.likes.some((like) => like.userId === currentUserID);
                     setLikedByCurrentUser(userLiked);
-                    // This logs whether the user has liked the post (true or false)
+                
                 } else {
                     console.log('error', 'user not found');
                 }
@@ -100,31 +99,31 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
                 console.error('Error fetching post data:', error);
             }
         };
-        fetchData(); // Call the async function immediately
+        fetchData();
     }, [postId, currentUserID]);
 
     const handleLike = async (postId) => {
         try {
             const postRef = doc(db, 'post', postId);
-            // Fetch the current post data
+        
             const postSnapshot = await getDoc(postRef);
             if (postSnapshot.exists()) {
                 const postData = postSnapshot.data();
                 if (likedByCurrentUser) {
-                    // Unlike the post
+                
                     const updatedLikes = postData.likes.filter((like) => like.userId !== currentUserID);
                     await updateDoc(postRef, { likes: updatedLikes });
                     setLikedByCurrentUser(false);
                     setTotalLikes(updatedLikes.length);
                 } else {
-                    // Like the post
+                
                     const updatedLikes = [...postData.likes, { userId: currentUserID }];
                     await updateDoc(postRef, { likes: updatedLikes });
                     setLikedByCurrentUser(true);
                     setTotalLikes(updatedLikes.length);
                 }
             } else {
-                // console.log(postId);
+            
                 console.error("The document with postId does not exist.");
             }
         } catch (error) {
@@ -149,8 +148,8 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
     }
     const postComment = async () => {
         try {
-            const postRef = doc(db, 'post', selectedPostId); // Assuming 'db' is your Firestore database reference
-            // Fetch the current post data
+            const postRef = doc(db, 'post', selectedPostId); 
+            
             const postSnapshot = await getDoc(postRef);
             if (postSnapshot.exists()) {
                 const postData = postSnapshot.data();
@@ -159,10 +158,10 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
                     ...postData.comments,
                     { userId: currentUserID, profileImage: authProfileImage, username: authUserName, textMessage: sanitizedTextMessage }
                 ];
-                await updateDoc(postRef, { comments: updatedComments }); // Update the comments field
-                setTextMessage(''); // Clear the input field
-                setCommentList(updatedComments); // Update the comment list state
-                // You can also update the total comments count if needed
+                await updateDoc(postRef, { comments: updatedComments }); 
+                setTextMessage(''); 
+                setCommentList(updatedComments); 
+                
                 setTotalComments(updatedComments.length);
             } else {
                 console.error("The document with selectedPostId does not exist.");
@@ -189,8 +188,8 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
                 const updatedComments = postData.comments.filter(comment => comment.id !== commentId);
 
                 await updateDoc(postRef, { comments: updatedComments });
-                setCommentList(updatedComments); // Update the comment list state
-                setTotalComments(updatedComments.length); // Update the total comments count if needed
+                setCommentList(updatedComments); 
+                setTotalComments(updatedComments.length); 
             } else {
                 console.error("The document with postId does not exist.");
             }
@@ -221,7 +220,7 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
                 { text: 'Cancel', onPress: () => console.log('Cancel Pressed') },
                 {
                     text: 'OK', onPress: async () => {
-                        const postRef = doc(db, 'post', postId); // Assuming 'posts' is your collection name
+                        const postRef = doc(db, 'post', postId); 
                         await deleteDoc(postRef);
                     }
                 }
@@ -359,12 +358,12 @@ const Post = ({ postId, username, profileImage, description, files, likess, comm
                                         }}>
                                             <Video
                                                 source={{ uri: file.url }}
-                                                style={styles.videoStyle} // Adjust dimensions as needed
+                                                style={styles.videoStyle} 
                                                 useNativeControls={true}
                                                 resizeMode='contain'
                                                 isLooping={false}
                                                 onError={() => {
-                                                    console.log('Image loading failed'); // Handle the error, e.g., show a placeholder or an error message
+                                                    console.log('Image loading failed'); 
                                                 }}
                                             />
                                         </TouchableOpacity>
@@ -526,20 +525,20 @@ const Mainscreen = ({ route }) => {
                 <FlatList
                     ref={scrollViewRef}
                     contentContainerStyle={{ minHeight: '100%' }}
-                    data={posts} // Use the 'posts' data array
-                    keyExtractor={(item) => item.id} // Specify a unique key for each item
+                    data={posts} 
+                    keyExtractor={(item) => item.id} 
                     refreshControl={
                         <RefreshControl
                             refreshing={isRefreshing}
-                            onRefresh={fetchPosts} // Refresh the initial posts
+                            onRefresh={fetchPosts} 
                             tintColor="red"
                         />
                     }
-                    onEndReached={handleLoadMore} // Load more posts when reaching the end
+                    onEndReached={handleLoadMore} 
                     onEndReachedThreshold={0.1}
-                    // Adjust the threshold as needed
+                    
                     renderItem={({ item }) => (
-                        // Render your Post component with 'item' as the prop
+                        
                         <Post
                             key={item.id}
                             postId={item.id}
@@ -569,9 +568,9 @@ const styles = StyleSheet.create({
     },
     centeredContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between', // Distribute buttons equally
+        justifyContent: 'space-between', 
         alignItems: 'center',
-        width: Dimensions.get('window').width * 0.9, // Responsive width
+        width: Dimensions.get('window').width * 0.9, 
     },
     button: {
         flexDirection: 'row',
@@ -635,7 +634,7 @@ const styles = StyleSheet.create({
     },
 
     userInfoContainer: {
-        flexDirection: 'column', // Make content appear vertically
+        flexDirection: 'column', 
         flex: 1,
     },
     username: {
@@ -646,8 +645,8 @@ const styles = StyleSheet.create({
     },
 
     creationDateText: {
-        fontSize: 12, // Adjust the font size as needed
-        color: 'gray', // Customize the text color
+        fontSize: 12, 
+        color: 'gray', 
     },
     postImage: {
         height: 375,
@@ -677,12 +676,12 @@ const styles = StyleSheet.create({
     likeButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: '10%', // Add margin between buttons
+        marginRight: '10%', 
     },
     commentButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginRight: '10%', // Add margin between buttons
+        marginRight: '10%', 
     },
     shareButton: {
         flexDirection: 'row',
@@ -752,15 +751,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     createPostButton: {
-        backgroundColor: '#FE0175', // Orange color for the button
+        backgroundColor: '#FE0175', 
         width: 70,
         height: 70,
-        borderRadius: 50, // Make it round
-        justifyContent: 'center', // Center the plus symbol vertically
-        alignItems: 'center', // Center the plus symbol horizontally
+        borderRadius: 50, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
         position: 'absolute',
-        bottom: 70, // Adjust the distance from the bottom
-        right: 20, // Adjust the distance from the left
+        bottom: 70, 
+        right: 20, 
     },
     emptySpace: {
         flex: 1,
